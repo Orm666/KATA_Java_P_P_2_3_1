@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table th:border="1">
+    <tr>
+        <th>name</th>
+        <th>lastName</th>
+        <th>email</th>
+        <th>age</th>
+        <th>Options</th>
+    </tr>
+
+
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.firstName}">name</td>
+        <td th:utext="${user.lastName}">lastName</td>
+        <td th:utext="${user.email}">email</td>
+        <td th:utext="${user.age}">age</td>
+        <td>
+            <a th:href="@{/users/{id}/update(id=${user.id})}">Update</a>
+            <a th:href="@{/users/{id}/removeUser(id=${user.id})}">Delete</a>
+        </td>
+    </tr>
+
+</table>
+
+<br>
+<form th:action="@{/users/add}">
+    <input type="submit" th:value="'Add'"/>
+</form>
+</body>
+</html>
