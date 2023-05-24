@@ -22,7 +22,7 @@
         <td th:utext="${user.email}">email</td>
         <td th:utext="${user.age}">age</td>
         <td>
-            <a th:href="@{/users/{id}/update(id=${user.id})}">Update</a>
+            <a th:href="@{/users/{id}/edit(id=${user.id})}">Update</a>
             <a th:href="@{/users/{id}/removeUser(id=${user.id})}">Delete</a>
         </td>
     </tr>

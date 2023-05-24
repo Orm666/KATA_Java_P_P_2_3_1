@@ -1,9 +1,10 @@
 package web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import web.model.User;
 import web.service.UserService;
 
@@ -21,7 +22,7 @@ public class UserController {
     @GetMapping
     public String displayAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "index";
+        return "viewAllUsers";
     }
 
     @GetMapping("/add")
@@ -33,29 +34,26 @@ public class UserController {
 
     @GetMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+        userService.save(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}/removeUser")
-    public String removeUser(@PathVariable Long id) {
-
-        userService.remove(id);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/{id}/update")
+    @GetMapping("/{id}/edit")
     public String updateUser(@PathVariable Long id ,Model model) {
-        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("add", false);
         return "viewUser";
     }
 
     @GetMapping("/updateUser")
     public String updateNewUser(@ModelAttribute("user") User user) {
-
-        System.out.println(user.getId());
         userService.update(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/{id}/removeUser")
+    public String removeUser(@PathVariable Long id) {
+        userService.remove(id);
         return "redirect:/users";
     }
 }
